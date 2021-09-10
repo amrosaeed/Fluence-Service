@@ -1,29 +1,29 @@
 import "@fluencelabs/aqua-lib/builtin.aqua"
 
-const helloWorldNodePeerId ?= "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi"
-const helloWorldServiceId ?= "1e740ce4-81f6-4dd4-9bed-8d86e9c2fa50"
+const charCountNodePeerId ?= "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e"
+const charCountServiceId ?= "9454c078-1b68-4ae1-bb30-b82690d5fec0"
 
-data HelloWorld:
+data CharCount:
   msg: string
   reply: string
 
 -- The service runs on a Fluence node
-service HelloWorld:
-    hello(from: PeerId) -> HelloWorld
+service CharCount:
+    char_count(from: PeerId) -> CharCount
 
 -- The service runs inside browser
-service HelloPeer("HelloPeer"):
-    hello(message: string) -> string
+service CharCountPeer("CharCountPeer"):
+    char_count(message: string) -> string
 
-func sayHello(targetPeerId: PeerId, targetRelayPeerId: PeerId) -> string:
+func countChars(messageToSend: string, targetPeerId: PeerId, targetRelayPeerId: PeerId) -> string:
     -- execute computation on a Peer in the network
-    on helloWorldNodePeerId:
-        HelloWorld helloWorldServiceId
-        comp <- HelloWorld.hello(%init_peer_id%)
+    on charCountNodePeerId:
+        CharCount charCountServiceId
+        comp <- CharCount.char_count(messageToSend)
 
     -- send the result to target browser in the background
     co on targetPeerId via targetRelayPeerId:
-        res <- HelloPeer.hello(%init_peer_id%)
+        res <- CharCountPeer.char_count(messageToSend)
 
     -- send the result to the initiator
     <- comp.reply

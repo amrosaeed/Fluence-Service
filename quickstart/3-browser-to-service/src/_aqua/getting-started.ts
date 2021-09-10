@@ -13,26 +13,26 @@ import { RequestFlow } from '@fluencelabs/fluence/dist/internal/RequestFlow';
 
 // Services
 
-//HelloWorld
+//CharCount
 //defaultId = undefined
 
-//hello: (from: string) => {msg:string;reply:string}
-//END HelloWorld
+//char_count: (from: string) => {msg:string;reply:string}
+//END CharCount
 
 
 
 
-//HelloPeer
-//defaultId = "HelloPeer"
+//CharCountPeer
+//defaultId = "CharCountPeer"
 
-//hello: (message: string) => string
-//END HelloPeer
+//char_count: (message: string) => string
+//END CharCountPeer
 
 
 
 // Functions
 
-export async function sayHello(client: FluenceClient, targetPeerId: string, targetRelayPeerId: string, config?: {ttl?: number}): Promise<string> {
+export async function countChars(client: FluenceClient, messageToSend: string, targetPeerId: string, targetRelayPeerId: string, config?: {ttl?: number}): Promise<string> {
     let request: RequestFlow;
     const promise = new Promise<string>((resolve, reject) => {
         const r = new RequestFlowBuilder()
@@ -47,7 +47,10 @@ export async function sayHello(client: FluenceClient, targetPeerId: string, targ
      (seq
       (seq
        (seq
-        (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
+        (seq
+         (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
+         (call %init_peer_id% ("getDataSrv" "messageToSend") [] messageToSend)
+        )
         (call %init_peer_id% ("getDataSrv" "targetPeerId") [] targetPeerId)
        )
        (call %init_peer_id% ("getDataSrv" "targetRelayPeerId") [] targetRelayPeerId)
@@ -57,7 +60,7 @@ export async function sayHello(client: FluenceClient, targetPeerId: string, targ
      (xor
       (seq
        (call -relay- ("op" "noop") [])
-       (call "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi" ("1e740ce4-81f6-4dd4-9bed-8d86e9c2fa50" "hello") [%init_peer_id%] comp)
+       (call "12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e" ("9454c078-1b68-4ae1-bb30-b82690d5fec0" "char_count") [messageToSend] comp)
       )
       (seq
        (call -relay- ("op" "noop") [])
@@ -71,7 +74,7 @@ export async function sayHello(client: FluenceClient, targetPeerId: string, targ
     (seq
      (call targetRelayPeerId ("op" "noop") [])
      (xor
-      (call targetPeerId ("HelloPeer" "hello") [%init_peer_id%] res)
+      (call targetPeerId ("CharCountPeer" "char_count") [messageToSend] res)
       (seq
        (seq
         (call targetRelayPeerId ("op" "noop") [])
@@ -98,7 +101,8 @@ export async function sayHello(client: FluenceClient, targetPeerId: string, targ
                 h.on('getDataSrv', '-relay-', () => {
                     return client.relayPeerId!;
                 });
-                h.on('getDataSrv', 'targetPeerId', () => {return targetPeerId;});
+                h.on('getDataSrv', 'messageToSend', () => {return messageToSend;});
+h.on('getDataSrv', 'targetPeerId', () => {return targetPeerId;});
 h.on('getDataSrv', 'targetRelayPeerId', () => {return targetRelayPeerId;});
                 h.onEvent('callbackSrv', 'response', (args) => {
     const [res] = args;
@@ -113,7 +117,7 @@ h.on('getDataSrv', 'targetRelayPeerId', () => {return targetRelayPeerId;});
             })
             .handleScriptError(reject)
             .handleTimeout(() => {
-                reject('Request timed out for sayHello');
+                reject('Request timed out for countChars');
             })
         if(config && config.ttl) {
             r.withTTL(config.ttl)

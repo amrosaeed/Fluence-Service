@@ -4,12 +4,13 @@ import "./App.scss";
 
 import { createClient, FluenceClient } from "@fluencelabs/fluence";
 import { krasnodar } from "@fluencelabs/fluence-network-environment";
-import { sayHello } from "./_aqua/getting-started";
+import { countChars } from "./_aqua/getting-started";
 
 const relayNodes = [krasnodar[0], krasnodar[1], krasnodar[2]];
 
 function App() {
   const [client, setClient] = useState<FluenceClient | null>(null);
+  const [messageToSend, setMessageToSend] = useState<string>("");
   const [helloMessage, setHelloMessage] = useState<string | null>(null);
 
   const [peerIdInput, setPeerIdInput] = useState<string>("");
@@ -19,8 +20,7 @@ function App() {
     createClient(relayPeerId)
       .then((client) => {
         // Register handler for this call in aqua:
-        // HelloWorld.recieveHello(%init_peer_id%)
-        client.callServiceHandler.onEvent("HelloPeer", "hello", (args) => {
+        client.callServiceHandler.onEvent("CharCountPeer", "char_count", (args) => {
           // no computation is done inside the browser
           const [msg] = args;
           setHelloMessage(msg);
@@ -35,7 +35,7 @@ function App() {
       return;
     }
     // Using aqua is as easy as calling a javascript funсtion
-    const res = await sayHello(client!, peerIdInput, relayPeerIdInput);
+    const res = await countChars(client!, messageToSend, peerIdInput, relayPeerIdInput);
     setHelloMessage(res);
   };
 
@@ -81,10 +81,10 @@ function App() {
             </table>
 
             <div>
-              <h2>Say hello!</h2>
+              <h2>Send fluence a sweet message!</h2>
               <p className="p">
                 Now try opening a new tab with the same application. Copy paste
-                the peer id and relay from the second tab and say hello!
+                the peer id and relay from the second tab and send your message!
               </p>
               <div className="row">
                 <label className="label bold">Target peer id</label>
@@ -105,8 +105,16 @@ function App() {
                 />
               </div>
               <div className="row">
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Type your message..."
+                  onChange={(e) => setMessageToSend(e.target.value)}
+                  value={messageToSend}
+                />
+
                 <button className="btn btn-hello" onClick={helloBtnOnClick}>
-                  say hello
+                  send message
                 </button>
               </div>
             </div>
