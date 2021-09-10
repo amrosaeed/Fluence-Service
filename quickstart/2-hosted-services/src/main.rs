@@ -28,10 +28,22 @@ pub struct HelloWorld {
 }
 
 #[marine]
-pub fn hello(from: String) -> HelloWorld {
+pub fn hello(message: String) -> HelloWorld {
+    let num_chars = message.chars().count();
+    let _msg;
+    let _reply;
+
+    if num_chars < 1 {
+        _msg = format!("Your message was empty");
+        _reply = format!("Your message has 0 characters");
+    } else {
+        _msg = format!("Message: {}", message);
+        _reply = format!("Your message {} has {} character(s)", message, num_chars);
+    }
+
     HelloWorld {
-        msg: format!("Hello from: \n{}", from),
-        reply: format!("Hello back to you, \n{}", from),
+        msg: _msg,
+        reply: _reply
     }
 }
 
@@ -41,13 +53,15 @@ mod tests {
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
     fn non_empty_string(hello_world: marine_test_env::hello_world::ModuleInterface) {
-        let actual = hello_world.hello("SuperNode".to_string());
-        assert_eq!(actual.msg, "Hello from: \nSuperNode".to_string());
+        let actual = hello_world.hello("SuperNode ☮".to_string());
+        assert_eq!(actual.msg, "Message: SuperNode ☮");
+        assert_eq!(actual.reply, "Your message SuperNode ☮ has 11 character(s)".to_string());
     }
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
     fn empty_string(hello_world: marine_test_env::hello_world::ModuleInterface) {
         let actual = hello_world.hello("".to_string());
-        assert_eq!(actual.msg, "Hello from: \n");
+        assert_eq!(actual.msg, "Your message was empty");
+        assert_eq!(actual.reply, "Your message has 0 characters"); 
     }
 }
