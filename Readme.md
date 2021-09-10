@@ -5,6 +5,8 @@ This is a tutorial on how to create a character count application using Fluence.
 > Fluence is an open protocol and a framework for internet or private cloud applications. Fluence provides a peer-to-peer development stack so that you can create applications free of proprietary cloud platforms, centralized APIs, and untrustworthy third-parties.
 > At the core of Fluence is the open-source language Aqua that allows for the programming of peer-to-peer scenarios separately from the computations on peers.
 
+The deployed contract from this tutorial is accessible at [Character Count Service](https://dash.fluence.dev/blueprint/5c187205fef8d3306dcf6ffd73efd623a8774d3adc698e6244bc11e81d704ba6).
+
 ### About this tutorial
 
 It is recommended that you first follow the section "Quick Start" in the excellent getting started tutorial from the Fluence documentation.
@@ -27,7 +29,7 @@ Unless otherwise indicated, the applicable license is [Apache 2.0](https://githu
 
 The task is to extend the simple hello world example to add a character count to sent messages.
 
-As you will have learned from the [Quick Start](https://doc.fluence.dev/docs/quick-start) tutorial, Fluence provides a Docker container pre-configured with example applications. We will be extending code in the examples/quickstart folder. We first prepare the version control for the examples code.
+As you will have learned from the [Quick Start](https://doc.fluence.dev/docs/quick-start) tutorial, Fluence provides a Docker container pre-configured with example applications. We will be extending code in the examples/quickstart folder. We first prepare the version control for the examples code to create our own repository.
 
 ```bash
 cd /workspaces/devcontainer/examples
@@ -42,7 +44,7 @@ git push -u origin main
 
 ### Extending The Service
 
-The service that will be deployed resides in the quickstart/3-browser-to-service folder. We will need to modify the code in src/main.rs to add a character count to the message reply.
+The rust code and configuration files for the service that will be deployed resides in the [quickstart/2-hosted-services](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) folder. We modify the code in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) to add a character count to the message reply.
 
 ```rust
 #[marine]
@@ -72,9 +74,9 @@ pub fn char_count(message: String) -> CharCount {
 }
 ```
 
-> Before building we must refactor all referencies to hello_world, hello and HelloWorld in the configs directory and Cargo.toml file to use the new char_count module, char_count function name and CharCount struct.
+Before building we must also refactor all referencies to hello_world, hello and HelloWorld in the configs directory and Cargo.toml file to use the new char_count module, char_count function name and CharCount struct.
 
-Once this is done we build the service. This will create a char_count.wasm file in ./artifacts that will be deployed later.
+Once this is done we build the service. This will create a WebAssembly file char_count.wasm in ./artifacts that will be deployed later.
 
 ```bash
 cd quickstart
@@ -82,9 +84,9 @@ cd 2-hosted-services
 ./scripts/build.sh
 ```
 
-We update the tests in main.rs to work with the new service. We enter a special character in the string to ensure that special characters are being counted correctly. 
+We update the tests in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) to work with the new service. We enter a special character in the string to ensure that special characters are being counted correctly. 
 
-Using the following command we can test that our service is working as expected before deployment:
+Using the following command we test that our service is working as expected before deployment:
 
 ```bash
 cargo +nightly test --release
@@ -94,7 +96,7 @@ cargo +nightly test --release
 
 Once the service is built and the tests pass, we are ready to deploy the service to Fluence.
 
-We can gather a list of test peers using the command:
+Services are deployed to specific peers that will handle our requests. We can gather a list of test peers using the command:
 
 ```bash
 fldist env
@@ -109,7 +111,7 @@ fldist --node-id 12D3KooWSD5PToNiLQwKDXsu8JSysCwUt8BVUJEqCHcDe7P5h45e \
        --name char-count-br
 ```
 
-This returned the service id **9454c078-1b68-4ae1-bb30-b82690d5fec0** which we can use later to interact with the service. (Your deployed service id will be different, or you can use this one for performing front end tests).
+Running this command returned the service id **9454c078-1b68-4ae1-bb30-b82690d5fec0** which we can use later to interact with the service. (Your deployed service id will be different, or you can use this one if you are only performing front end experiments).
 
 ### Fluence Developer Hub
 
@@ -120,11 +122,11 @@ The deployed contract used in this tutorial can be viewed at:
 
 ### Updating The Aqua Code 
 
-With the character count contract deployed, we move to the front end code. This is located in the quickstart/3-browser-to-service directory.
+[Aqua](https://doc.fluence.dev/aqua-book/) is a simplified language for defining peer-to-peer applications with Fluence.
 
-[Aqua Book](https://doc.fluence.dev/aqua-book/)
+With the character count contract deployed, we move to the front end code. This is located in the [quickstart/3-browser-to-service](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/3-browser-to-service).
 
-Our changes focus on the getting-started.aqua file. [Aqua](https://doc.fluence.dev/docs/knowledge_aquamarine/hll) is a simplified language for defining peer-to-peer applications with Fluence.
+Our changes focus on the [getting-started.aqua](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/3-browser-to-service/aqua/getting-started.aqua) file.
 
 Firstly we change the service id and peer id to match those returned when we deployed the contract.
 
@@ -147,7 +149,7 @@ func countChars(messageToSend: string, targetPeerId: PeerId, targetRelayPeerId: 
     <- comp.reply
 ```
 
-We must now run the aqua compiler which processes the Aqua code and generates a typescript file in src/_aqua/getting-started.ts that we can use in our web app.
+We now run the aqua compiler which processes the Aqua code and generates a typescript file in src/_aqua/getting-started.ts that we can use in our web app.
 
 ```bash
 aqua --input ./aqua/getting-started.aqua --output ./src/_aqua/
@@ -157,9 +159,9 @@ aqua --input ./aqua/getting-started.aqua --output ./src/_aqua/
 
 Finally we need to update the front end code to interact with our new character count service via the interfaces defined in the Aqua file.
 
-The front end code is found in the src/App.tsx file. For this simplified application this mostly requires changing hello and hello world variable names to their character count alternatives that we updated in the getting-started.aqua file.
+The front end code is found in the [src/App.tsx](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/3-browser-to-servicesrc/src/App.tsx) file. For this simplified application this mostly requires changing hello and hello world variable names to their character count alternatives that we used in the getting-started.aqua file.
 
-We also add a message box so that we can send our custom messages across so that we can now say more than a simple hello.
+We also add a message box so that we can send our custom messages so that we can say more than a simple hello.
 
 ### Running The Updated Application
 
