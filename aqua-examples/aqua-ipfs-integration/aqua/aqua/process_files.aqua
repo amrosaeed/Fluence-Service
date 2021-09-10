@@ -1,0 +1,13 @@
+data SizeResult:
+  size: u32
+  success: bool
+  error: string
+
+data WriteResult:
+  path: string
+  success: bool
+  error: string
+
+service ProcessFiles:
+  file_size(file_path: string) -> SizeResult
+  write_file_size(size: u32) -> WriteResult

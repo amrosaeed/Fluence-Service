@@ -1,0 +1,10 @@
+{
+    "name": "ethqlite",
+    "mem_page_count": 1,
+    "preopened_files": [
+        "/tmp"
+    ],
+    "mapped_dirs": {
+        "tmp": "./tmp"
+    }
+}

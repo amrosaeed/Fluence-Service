@@ -1,0 +1,14 @@
+target
+node_modules
+.idea
+.DS_Store
+Cargo.lock
+.vscode
+.repl_history
+/target
+**/**.bak
+**/**.bk
+/artifacts
+keypair.json
+*.wasm
+
