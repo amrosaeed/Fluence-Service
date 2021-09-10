@@ -170,13 +170,25 @@ The application is started by running:
 npm start
 ```
 
-We are presented with a list of relays (you can choose any). Once this is selected we fire up (or get a friend to fire up) another browser window and do the same.
+1. We are presented with a list of relays (you can choose any). You will then be presented with the main interface for the application:
 
-Next we fire off our amazing message to the other peer id:
+![Main Interface](https://github.com/ben-razor/Fluence-Service/blob/main/img/2-peer-selected.png)
 
-We get back out message with the characters counted!
+2. Once this is selected we fire up (or get a friend to fire up) another browser window and do the same.
+
+![Other Client](https://github.com/ben-razor/Fluence-Service/blob/main/img/3-second-peer-selected.png)
+
+3. Next we fire off our amazing message to the other peer id:
+
+![Send Message](https://github.com/ben-razor/Fluence-Service/blob/main/img/4-pre-message-send.png)
+
+4. We get back out message with the characters counted!
+
+![Character Count Displayed](https://github.com/ben-razor/Fluence-Service/blob/main/img/5-character-count-displayed.png)
 
 And as a bonus our message gets sent through to the other client like magic!
+
+![Message sent to other client](https://github.com/ben-razor/Fluence-Service/blob/main/img/6-message-send-to-other-client.png)
 
 ### Wrapping Up
 
