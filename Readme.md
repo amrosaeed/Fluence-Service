@@ -10,7 +10,7 @@ It is recommended that you first follow the section [Quick Start](https://doc.fl
 
 The tutorial presented here builds on the Quick Start tutorial by extending the basic hello world app to add message sending and character count functionality.
 
-Along the way we link to source files within this repository so that you open these follow along. You will find that the code required to deploy a peer-to-peer application with Fluence is very simple and concise.
+Along the way we link to source files within this repository so that you can open these and follow along. You will find that the code required to deploy a peer-to-peer application with Fluence is very simple and concise.
 
 Unless otherwise indicated, the applicable license is [Apache 2.0](https://github.com/fluencelabs/fluence/blob/master/LICENSE).
 
