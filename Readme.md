@@ -52,7 +52,7 @@ git push -u origin main
 
 ### Extending The Service
 
-The rust code and configuration files for the service that will be deployed resides in the [quickstart/2-hosted-services](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) folder. We modify the code in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) to add a character count to the message reply.
+The rust code and configuration files for the service that will be deployed resides in the [quickstart/2-hosted-services](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) folder. We modify the code in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services/src/main.rs) to add a character count to the message reply.
 
 ```rust
 #[marine]
@@ -92,7 +92,7 @@ cd 2-hosted-services
 ./scripts/build.sh
 ```
 
-We update the tests in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services) to work with the new service. We enter a special character in the string to ensure that special characters are being counted correctly. 
+We update the tests in [src/main.rs](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services/src/main.rs) to work with the new service. We enter a special character in the string to ensure that special characters are being counted correctly. 
 
 Using the following command we test that our service is working as expected before deployment:
 
