@@ -1,13 +1,13 @@
 {
 	"services": {
-		"hello_world_compute": {
-			"dependencies": ["hello_world"],
+		"char_count_compute": {
+			"dependencies": ["char_count"],
 			"node": "12D3KooWHLxVhUQyAuZe6AHMB29P7wkvTNMn7eDMcsqimJYLKREf"
 		}
 	},
 	"modules": {
-		"hello_world_compute": {
-			"file": "artifacts/hello_world.wasm",
+		"char_count_compute": {
+			"file": "artifacts/char_count.wasm",
             "config": {
 				"preopened_files": []
 			}

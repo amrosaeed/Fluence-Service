@@ -1,13 +1,13 @@
 [package]
-name = "hello-world"
+name = "char-count"
 version = "0.1.0"
-authors = ["Fluence Labs"]
-description = "Hello world string computation"
+authors = ["Ben Razor"]
+description = "Message character counter"
 edition = "2018"
 publish = false
 
 [[bin]]
-name = "hello_world"
+name = "char_count"
 path = "src/main.rs"
 
 [dependencies]

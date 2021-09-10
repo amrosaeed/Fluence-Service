@@ -1,8 +1,8 @@
 {
     "services": {
-        "hello_world": {
+        "char_count": {
             "dependencies": [
-                "hello_world_compute"
+                "char_count_compute"
             ],
             "node": "12D3KooWHLxVhUQyAuZe6AHMB29P7wkvTNMn7eDMcsqimJYLKREf",
             "hashDependencies": [
@@ -13,8 +13,8 @@
         }
     },
     "modules": {
-        "hello_world_compute": {
-            "file": "artifacts/hello_world.wasm",
+        "char_count_compute": {
+            "file": "artifacts/char_count.wasm",
             "config": {
                 "preopened_files": []
             },

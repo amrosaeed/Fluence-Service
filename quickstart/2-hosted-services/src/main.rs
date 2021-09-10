@@ -22,13 +22,13 @@ module_manifest!();
 pub fn main() {}
 
 #[marine]
-pub struct HelloWorld {
+pub struct CharCount {
     pub msg: String,
     pub reply: String,
 }
 
 #[marine]
-pub fn hello(message: String) -> HelloWorld {
+pub fn char_count(message: String) -> CharCount {
     let num_chars = message.chars().count();
     let _msg;
     let _reply;
@@ -41,7 +41,7 @@ pub fn hello(message: String) -> HelloWorld {
         _reply = format!("Your message {} has {} character(s)", message, num_chars);
     }
 
-    HelloWorld {
+    CharCount {
         msg: _msg,
         reply: _reply
     }
@@ -52,15 +52,15 @@ mod tests {
     use marine_rs_sdk_test::marine_test;
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
-    fn non_empty_string(hello_world: marine_test_env::hello_world::ModuleInterface) {
-        let actual = hello_world.hello("SuperNode ☮".to_string());
+    fn non_empty_string(char_count: marine_test_env::char_count::ModuleInterface) {
+        let actual = char_count.char_count("SuperNode ☮".to_string());
         assert_eq!(actual.msg, "Message: SuperNode ☮");
         assert_eq!(actual.reply, "Your message SuperNode ☮ has 11 character(s)".to_string());
     }
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
-    fn empty_string(hello_world: marine_test_env::hello_world::ModuleInterface) {
-        let actual = hello_world.hello("".to_string());
+    fn empty_string(char_count: marine_test_env::char_count::ModuleInterface) {
+        let actual = char_count.char_count("".to_string());
         assert_eq!(actual.msg, "Your message was empty");
         assert_eq!(actual.reply, "Your message has 0 characters"); 
     }
