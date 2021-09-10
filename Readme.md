@@ -6,9 +6,7 @@ The deployed contract from this tutorial is accessible at [Character Count Servi
 
 ### About this tutorial
 
-It is recommended that you first follow the section "Quick Start" in the excellent getting started tutorial from the Fluence documentation.
-
-[Quick Start](https://doc.fluence.dev/docs/quick-start)
+It is recommended that you first follow the section [Quick Start](https://doc.fluence.dev/docs/quick-start) in the excellent getting started tutorial from the Fluence documentation.
 
 The tutorial presented here builds on the Quick Start tutorial by extending the basic hello world app to add message sending and character count functionality.
 
@@ -23,6 +21,17 @@ Unless otherwise indicated, the applicable license is [Apache 2.0](https://githu
     $ aqua-cli         – compile Aqua to AIR + Typescript  
     $ fldist           – deploy & query services  
 ```
+
+### The code for this tutorial
+
+The code created for this tutorial can be found in the following folders in this repository:
+
+[quickstart/2-hosted-services](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/2-hosted-services)
+
+And
+
+[quickstart/3-browser-to-service](https://github.com/ben-razor/Fluence-Service/tree/main/quickstart/3-browser-to-service)
+
 
 ### Character Count Extension
 
