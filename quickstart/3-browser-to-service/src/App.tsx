@@ -11,7 +11,7 @@ const relayNodes = [krasnodar[0], krasnodar[1], krasnodar[2]];
 function App() {
   const [client, setClient] = useState<FluenceClient | null>(null);
   const [messageToSend, setMessageToSend] = useState<string>("");
-  const [helloMessage, setHelloMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const [peerIdInput, setPeerIdInput] = useState<string>("");
   const [relayPeerIdInput, setRelayPeerIdInput] = useState<string>("");
@@ -23,20 +23,20 @@ function App() {
         client.callServiceHandler.onEvent("CharCountPeer", "char_count", (args) => {
           // no computation is done inside the browser
           const [msg] = args;
-          setHelloMessage(msg);
+          setMessage(msg);
         });
         setClient(client);
       })
       .catch((err) => console.log("Client initialization failed", err));
   };
 
-  const helloBtnOnClick = async () => {
+  const messageBtnOnClick = async () => {
     if (client === null) {
       return;
     }
     // Using aqua is as easy as calling a javascript funсtion
     const res = await countChars(client!, messageToSend, peerIdInput, relayPeerIdInput);
-    setHelloMessage(res);
+    setMessage(res);
   };
 
   const isConnected = client !== null;
@@ -113,7 +113,7 @@ function App() {
                   value={messageToSend}
                 />
 
-                <button className="btn btn-hello" onClick={helloBtnOnClick}>
+                <button className="btn btn-hello" onClick={messageBtnOnClick}>
                   send message
                 </button>
               </div>
@@ -136,10 +136,10 @@ function App() {
           </>
         )}
 
-        {helloMessage && (
+        {message && (
           <>
             <h2>Message</h2>
-            <div> {helloMessage} </div>
+            <div> {message} </div>
           </>
         )}
       </div>
