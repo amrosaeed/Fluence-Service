@@ -171,6 +171,19 @@ The front end code is found in the [src/App.tsx](https://github.com/ben-razor/Fl
 
 We also add a message box so that we can send our custom messages so that we can say more than a simple hello.
 
+This requires an important change to pass the message (messageToSend) to the countChars method we defined earlier in the Aqua interface:
+
+```TypeScript
+  const messageBtnOnClick = async () => {
+    if (client === null) {
+      return;
+    }
+    // Using aqua is as easy as calling a javascript funсtion
+    const res = await countChars(client!, messageToSend, peerIdInput, relayPeerIdInput);
+    setMessage(res);
+  };
+```
+
 ### Running The Updated Application
 
 The application is started by running:
