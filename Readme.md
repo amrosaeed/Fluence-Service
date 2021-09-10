@@ -1,9 +1,6 @@
 # Fluence Character Counter
 
-This is a tutorial on how to create a character count application using Fluence. Fluence is an easy to use platform for creating fast peer-to-peer applications. From their documentation:
-
-> Fluence is an open protocol and a framework for internet or private cloud applications. Fluence provides a peer-to-peer development stack so that you can create applications free of proprietary cloud platforms, centralized APIs, and untrustworthy third-parties.
-> At the core of Fluence is the open-source language Aqua that allows for the programming of peer-to-peer scenarios separately from the computations on peers.
+This is a tutorial on how to create a character count application using Fluence. [Fluence](https://fluence.network/) is an easy to use platform for creating fast peer-to-peer applications.
 
 The deployed contract from this tutorial is accessible at [Character Count Service](https://dash.fluence.dev/blueprint/5c187205fef8d3306dcf6ffd73efd623a8774d3adc698e6244bc11e81d704ba6).
 
@@ -14,6 +11,8 @@ It is recommended that you first follow the section "Quick Start" in the excelle
 [Quick Start](https://doc.fluence.dev/docs/quick-start)
 
 The tutorial presented here builds on the Quick Start tutorial by extending the basic hello world app to add message sending and character count functionality.
+
+Along the way we link to source files within this repository so that you open these follow along. You will find that the code required to deploy a peer-to-peer application with Fluence is very simple and concise.
 
 Unless otherwise indicated, the applicable license is [Apache 2.0](https://github.com/fluencelabs/fluence/blob/master/LICENSE).
 
