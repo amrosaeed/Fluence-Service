@@ -37,13 +37,27 @@ And
 
 The task is to extend the simple hello world example to add a character count to sent messages.
 
-As you will have learned from the [Quick Start](https://doc.fluence.dev/docs/quick-start) tutorial, Fluence provides a Docker container pre-configured with example applications. We will be extending code in the examples/quickstart folder. We first prepare the version control for the examples code to create our own repository.
+As you will have learned from the [Quick Start](https://doc.fluence.dev/docs/quick-start) tutorial, Fluence provides a Docker container pre-configured with example applications. We will be extending code in the examples/quickstart folder.
+
+To get the code for this tutorial into your Docker container and see it in action you can do the following:
+
+```bash
+cd /workspaces/devcontainer/examples
+git clone --depth=1 --branch=main git@github.com:ben-razor/Fluence-Service.git
+cd Fluence-Service
+rm -rf ./.git
+cd quickstart/3-browser-to-service
+npm install
+npm start
+```
+
+Alternatively, if you want to create a repository for your own application based on the Quick Start tutorial. These are the commands we used as a starting point.
 
 ```bash
 cd /workspaces/devcontainer/examples
 rm -r ./.git
 git init
-git remote add origin git@github.com:ben-razor/Fluence-Service.git
+git remote add origin git@github.com:<your-github-id>/<your-project-id>.git
 git add .
 git commit -m "Initial commit"
 git branch -M main
