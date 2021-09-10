@@ -201,4 +201,4 @@ And as a bonus our message gets sent through to the other client like magic!
 
 ### Wrapping Up
 
-And that's it! I hope this tutorial will help you to make some amazing applications using fluence.
+And that's it! I hope this tutorial will help you to make some amazing applications using Fluence.
